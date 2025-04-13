@@ -5,6 +5,11 @@
 package com.mycompany.javapoe;
 
 
+/////////
+            /// I did not use chatGPT for my regex. I used the examples we did in class and watched some tutorials.
+/////////
+
+
 public class Login {
     
     // variables
@@ -17,6 +22,12 @@ public class Login {
    
     
     //CONSTRUCTOR to store variables
+    
+    
+   //////// 
+            /// I added first and last name because theres a greeting message in the question paper.
+   //////// 
+    
     
     public Login(String firstName, String lastName, String userName, String password, String cellNumber){   
         
@@ -34,7 +45,7 @@ public class Login {
     
     //getter
     
-    public String getfirstName(){
+    public String getFirstName(){
         return firstName;
     }
     
@@ -152,7 +163,11 @@ public class Login {
     public String registerUser(){
         
         if (!checkUsername() || !checkPasswordComplexity() || !checkCellPhoneNumber())
-            return "Username, Password or Cellnumber are incorrectly formatted. Username must include and underscore(_) and be 5 or less characters. Password must be at least 8 characters long, contain at least 1 capital, at least 1 number and at least 1 of the following characters; !@#$%^&*()_ . Cellnumber must start with +27 and be 12 characters long.";
+            return "Username, Password or Cell Number are incorrectly formatted. " +
+            "Username must include an underscore (_) and be ≤ 5 characters. " +
+            "Password must be ≥ 8 characters with a capital, a number, and a special character (!@#$%^&*()_). " +
+            "Cell number must start with +27 and contain 12 digits.";
+
             
         else
 
@@ -160,7 +175,7 @@ public class Login {
     }
     
     
-    // LOGIN checks if details entered matches login details
+    // LOGINUSER checks if details entered matches login details
     
     
     public boolean loginUser(String inputUsername, String inputPassword) {
@@ -168,7 +183,7 @@ public class Login {
 }
     
     
-    //Login status says if successful or failed login
+    //LoginStatus says if successful or failed login
     
     public String returnloginStatus(String inputUsername, String inputPassword){
     if (!loginUser(inputUsername, inputPassword)) {
