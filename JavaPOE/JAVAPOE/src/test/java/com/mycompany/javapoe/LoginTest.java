@@ -4,38 +4,25 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
-
-
 ////////////
 
-            /////  I watched tutorials on how to make a test class in netbeans and used chatGPT to explain some things that confused me.
+/////  I watched tutorials on how to make a test class in NetBeans and used ChatGPT to explain some things that confused me.
 
 ///////////
-
-
-
-
-
-
-
 
 public class LoginTest {
 
     private Login login;
 
+    /// using @BeforeEach so I don’t have to make multiple login objects
     @BeforeEach
     public void setUp() {
         login = new Login("Ryan", "Solomon", "kyl_1", "Ch&&sec@ke99!", "+27838968976");
     }
 
-    
     /// checks first name
-    
-    
     @Test
-    public void testGetfirstName() {
+    public void testGetFirstName() {
         assertEquals("Ryan", login.getFirstName());
     }
 
@@ -44,22 +31,20 @@ public class LoginTest {
         login.setFirstName("Ryan");
         assertEquals("Ryan", login.getFirstName());
     }
-    
+
     @Test
     public void testCheckFirstName() {
         assertTrue(login.checkFirstName());
     }
 
-    
     /// checks last name
-    
     @Test
     public void testGetLastName() {
-        assertEquals("Solomon", login.getLastName()); 
+        assertEquals("Solomon", login.getLastName());
     }
 
     @Test
-    public void testSetLasttName() {
+    public void testSetLastName() {  // fixed method name here
         login.setLastName("Solomon");
         assertEquals("Solomon", login.getLastName());
     }
@@ -68,10 +53,8 @@ public class LoginTest {
     public void testCheckLastName() {
         assertTrue(login.checkLastName());
     }
-    
-    
-    /// checks username
 
+    /// checks username
     @Test
     public void testGetUsername() {
         assertEquals("kyl_1", login.getUsername());
@@ -87,10 +70,8 @@ public class LoginTest {
     public void testCheckUsername() {
         assertTrue(login.checkUsername());
     }
-    
-    /// checks password
-    
 
+    /// checks password
     @Test
     public void testGetPassword() {
         assertEquals("Ch&&sec@ke99!", login.getPassword());
@@ -108,8 +89,6 @@ public class LoginTest {
     }
 
     /// checks cell number
-    
-    
     @Test
     public void testGetCellNumber() {
         assertEquals("+27838968976", login.getCellNumber());
@@ -125,31 +104,27 @@ public class LoginTest {
     public void testCheckCellPhoneNumber() {
         assertTrue(login.checkCellPhoneNumber());
     }
-    
-    
-    /// checks if username, password, phone number are all valid to register.
-    
 
+    /// checks if username, password, phone number are valid
     @Test
     public void testRegisterUser() {
-        assertEquals("Successfully registered!", login.registerUser());
+        String expected = "Username successfully captured.\nPassword successfully captured.\nCell phone number successfully added.";
+        assertEquals(expected, login.registerUser());
     }
 
-    
     /// checks if login details match
-    
     @Test
     public void testLoginUser() {
         assertTrue(login.loginUser("kyl_1", "Ch&&sec@ke99!"));
         assertFalse(login.loginUser("wrong", "wrong"));
     }
 
-    
     /// says if logged in or not
-    
     @Test
-    public void testReturnloginStatus() {
-        assertEquals("Welcome " + login.getFirstName() + " " + login.getLastName() + ", good to see you again.", login.returnloginStatus("kyl_1", "Ch&&sec@ke99!"));
-        assertEquals("Login failed. Username or password does not match.", login.returnloginStatus("wrong", "wrong"));
+    public void testReturnLoginStatus() { 
+        assertEquals("Welcome Ryan Solomon, it is great to see you again.", 
+                     login.returnLoginStatus("kyl_1", "Ch&&sec@ke99!"));
+        assertEquals("Username or password incorrect, please try again.", 
+                     login.returnLoginStatus("wrong", "wrong"));
     }
-} 
+}
