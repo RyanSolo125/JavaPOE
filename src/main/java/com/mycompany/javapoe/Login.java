@@ -6,6 +6,7 @@ package com.mycompany.javapoe;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.*;
 
 public class Login {
 
@@ -22,6 +23,11 @@ public class Login {
 
     // static storage for registered users
     private static Map<String, String> registeredUsers = new HashMap<>();
+
+    // load users from file when class is loaded
+    static {
+        loadUsersFromFile();
+    }
 
     // CONSTRUCTOR to store variables
     public Login(String firstName, String lastName, String userName, String password, String cellNumber) {
@@ -139,6 +145,8 @@ public class Login {
 
         //  Store valid registration
         registeredUsers.put(userName, password);
+        saveUserToFile(userName, password); // save to file
+
         return "Username successfully captured.\nPassword successfully captured.\nCell phone number successfully added.";
     }
 
@@ -153,5 +161,34 @@ public class Login {
             return "Username or password incorrect, please try again.";
         }
         return "Welcome " + firstName + " " + lastName + ", it is great to see you again.";
+    }
+
+    // helper method to save user to file
+    private static void saveUserToFile(String username, String password) {
+        try (FileWriter fw = new FileWriter("users.txt", true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println(username + "," + password);
+        } catch (IOException e) {
+            System.out.println("Error saving user: " + e.getMessage());
+        }
+    }
+
+    // helper method to load users from file
+    private static void loadUsersFromFile() {
+        File file = new File("users.txt");
+        if (!file.exists()) return;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",", 2);
+                if (parts.length == 2) {
+                    registeredUsers.put(parts[0], parts[1]);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading users: " + e.getMessage());
+        }
     }
 }
