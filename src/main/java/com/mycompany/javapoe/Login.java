@@ -152,6 +152,6 @@ public class Login {
         if (!loginUser(inputUsername, inputPassword)) {
             return "Username or password incorrect, please try again.";
         }
-        return "Welcome " + inputUsername + ", it is great to see you again.";
+        return "Welcome " + firstName + " " + lastName + ", it is great to see you again.";
     }
 }
