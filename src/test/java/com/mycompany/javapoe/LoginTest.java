@@ -18,7 +18,9 @@ public class LoginTest {
     @BeforeEach
     public void setUp() {
         login = new Login("Ryan", "Solomon", "kyl_1", "Ch&&sec@ke99!", "+27838968976");
+        login.registerUser(); // Register the user before testing login
     }
+
 
     /// checks first name
     @Test
