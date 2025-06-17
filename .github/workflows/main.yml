@@ -1,0 +1,37 @@
+# .github/workflows/java.yml
+name: Java CI (JUnit)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'  # or 11 if that's what you're using
+        distribution: 'temurin'
+
+    - name: Compile Java files
+      run: |
+        mkdir classes
+        javac -d classes $(find src -name "*.java")
+
+    - name: Compile tests
+      run: |
+        mkdir test-classes
+        javac -cp classes:$(pwd)/libs/junit-5.9.3.jar -d test-classes $(find test -name "*.java")
+
+    - name: Run JUnit tests
+      run: |
+        java -jar libs/junit-platform-console-standalone-1.9.3.jar \
+          --class-path classes:test-classes \
+          --scan-class-path
